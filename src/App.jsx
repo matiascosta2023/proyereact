@@ -18,17 +18,19 @@ function App() {
 
   return (
     <BrowserRouter>
+    <Hero greeting="Tienda "/>
 
    <Navbar/>
    <Routes>
-    <Route path='' element={<ItemListContainer saludar=''/>}/>
+    <Route path='/' element={<ItemListContainer saludar=''/>}/>
+    <Route path='/item' element={<ItemDetailContainer/>} />
+    <Route path='/api' element={  <ApiComponent/>} />
    </Routes>
-   <Hero greeting="Tienda "/>
      
-    <ItemCount/>
-    <ItemDetailContainer/>
+ 
+  
     {/* <Fetcountry/>  */}
-    <ApiComponent/>
+    
     <ContadorConHoc/>
 
 
