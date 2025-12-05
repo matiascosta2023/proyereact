@@ -1,11 +1,19 @@
 import React from 'react'
 import ItemCount from './ItemCount'
-
+import { useContext } from 'react'
+//importo el context que quiero utilizar
+import { CartContext } from '../context/CartContext'
 const ItemDetail = ({ detalle }) => {
+  const {cart} = useContext(CartContext)
+
+const onAdd = (cantidad) => {
+  console.log(`agregaste ${cantidad} al carrito`)
+}
+
   return (
     <div className="item-detail">
 
-      <h1>Detalle de: {detalle.nombre}</h1>
+      
 
       <div className="item-detail-content">
 
@@ -24,7 +32,7 @@ const ItemDetail = ({ detalle }) => {
           <p className="precio"><strong>Precio:</strong> ${detalle.precio}</p>
 
             <p>${detalle.categoria}</p>
-          <ItemCount stock={detalle.stock} />
+          <ItemCount stock={detalle.stock} onAdd={onAdd} />
 
         </div>
 
@@ -34,7 +42,7 @@ const ItemDetail = ({ detalle }) => {
     
   )
       
-console.log("ID de la URL:", id, "Tipo:", typeof id);
+
 }
 
 export default ItemDetail

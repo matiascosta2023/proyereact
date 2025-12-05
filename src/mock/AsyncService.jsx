@@ -118,7 +118,7 @@ console.log("ID recibido:", id, "tipo:", typeof id);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
      
-      let prod = productos.find((prod) => prod.id === id)
+      let prod = productos.find((prod) => prod.id == id)
       resolve(prod)
     }, 2000)
   })

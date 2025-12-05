@@ -58,6 +58,7 @@ header .btn-shop {
  header .logo{
     text-decoration: none;
     font-weight: bolder;
+    z-index: 1;
  }
  header .btn-group{
     display: flex;

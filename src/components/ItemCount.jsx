@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ItemCount = () => {
+const ItemCount = ({onAdd}) => {
   const [count, setCount] = useState(0);
 
   const sumar = () => {
@@ -11,11 +11,56 @@ const ItemCount = () => {
       setCount(count - 1);
     }
   };
+const ejecutarCompra = () => {
+  onAdd(count)
+}
   return (
     <>
-      <button onClick={restar}>-</button>
-      <span>{count}</span>
-      <button onClick={sumar}>+</button>
+    <div>
+ <button
+        onClick={restar}
+        style={{
+          padding: "8px 12px",
+          fontSize: "18px",
+          marginRight: "10px",
+          borderRadius: "6px",
+          backgroundColor: "#e5e5e5",
+          border: "1px solid #ccc",
+          cursor: "pointer",
+        }}
+      >
+        -
+      </button>
+
+      <span
+        style={{
+          fontSize: "20px",
+          fontWeight: "bold",
+          margin: "0 10px",
+          minWidth: "30px",
+          display: "inline-block",
+          textAlign: "center",
+        }}
+      >
+        {count}
+      </span>
+
+      <button
+        onClick={sumar}
+        style={{
+          padding: "8px 12px",
+          fontSize: "18px",
+          marginLeft: "10px",
+          borderRadius: "6px",
+          backgroundColor: "#e5e5e5",
+          border: "1px solid #ccc",
+          cursor: "pointer",
+        }}
+      >
+      + </button>
+    </div>
+      <button onClick={ejecutarCompra} disabled={count=== 0 || stock === 0}>Comprar</button>
+      
     </>
   );
 };
