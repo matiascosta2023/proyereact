@@ -34,11 +34,11 @@ const Navbar = () => {
         </a>
         <nav>
           <ul>
-           <li><NavLink to={'/'}>Inicio</NavLink></li>
-            <li><NavLink to={'/category/Notebooks'}>Notebooks</NavLink></li>
-            <li><NavLink to={'/category/PCs'}>PCs</NavLink></li>
-            <li><NavLink  to={'/category/Componentes'}>Componentes</NavLink></li>
-            <li><NavLink  to={'/category/Periféricos'}>Perifericos</NavLink></li>
+           <li><NavLink to={'/'} onClick={toggleMenu }>Inicio</NavLink></li>
+            <li><NavLink to={'/category/Notebooks'} onClick={toggleMenu }>Notebooks</NavLink></li>
+            <li><NavLink to={'/category/PCs'} onClick={toggleMenu }>PCs</NavLink></li>
+            <li><NavLink  to={'/category/Componentes'} onClick={toggleMenu }>Componentes</NavLink></li>
+            <li><NavLink  to={'/category/Periféricos'} onClick={toggleMenu }>Perifericos</NavLink></li>
           </ul>
         </nav>
       </aside>

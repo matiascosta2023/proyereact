@@ -9,46 +9,64 @@ import ApiComponent from "./example/ApiComponent";
 import withLogin from "./hoc/withLogin";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Error from "./components/Error";
-import Input from "./example/input";
 import { CartProvider } from "./context/CartContext";
+import LoaderComponent from "./components/LoaderComponent";
+import { useEffect, useState } from "react";
+import CartContainer from "./components/CartContainer";
+
 function App() {
-  //utilizacion del hoc
+  // HOCs
   const componenteConHoc = withLogin(ApiComponent);
   const ContadorConHoc = withLogin(ItemCount);
 
+  // Loader inicial
+  const [loader, setLoader] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoader(false);
+    }, 1500); // 1.5s — lo podés cambiar
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <BrowserRouter>
-      <CartProvider>
-        <Navbar />
+    <>
+      {loader && <LoaderComponent />}
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Hero greeting="Tienda " />
-                <ItemListContainer saludar="" />
-              </>
-            }
-          />
-          <Route
-            path="/category/:type"
-            element={
-              <>
-                <ItemListContainer saludar="Bienvenidos a categorias:" />
-              </>
-            }
-          />
+      {!loader && (
+        <BrowserRouter>
+          <CartProvider>
+            <Navbar />
 
-          <Route path="/item/:id" element={<ItemDetailContainer />} />
-          <Route path="/api" element={<ApiComponent />} />
-          <Route path="/api/:id" element={<ApiComponent />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </CartProvider>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Hero greeting="Tienda " />
+                    <ItemListContainer saludar="" />
+                  </>
+                }
+              />
 
-      {/* <Fetcountry/>  */}
-    </BrowserRouter>
+              <Route
+                path="/category/:type"
+                element={
+                  <ItemListContainer saludar="Bienvenidos a categorias:" />
+                }
+              />
+
+              <Route path="/item/:id" element={<ItemDetailContainer />} />
+              <Route path="/api" element={<ApiComponent />} />
+              <Route path="/api/:id" element={<ApiComponent />} />
+              <Route path="/cart" element={<CartContainer/>} />
+              <Route path="*" element={<Error />} />
+            </Routes>
+          </CartProvider>
+        </BrowserRouter>
+      )}
+    </>
   );
 }
 

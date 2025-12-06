@@ -3,10 +3,12 @@ import '../css/hero.css';
 import { getProducts } from '../mock/AsyncService';
 import ItemList from './ItemList';
 import { useParams } from 'react-router-dom';
+import LoaderComponent from './LoaderComponent';
 
 const ItemListContainer = (props) => {
   const { type } = useParams();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([])
+  const [loader, setLoader] = useState(false)
 
  
   const banners = {
@@ -19,6 +21,7 @@ const ItemListContainer = (props) => {
   const imgFondo = banners[type];
 
   useEffect(() => {
+    setLoader(true)
     getProducts()
       .then((res) => {
         if (type) {
@@ -27,14 +30,19 @@ const ItemListContainer = (props) => {
           setData(res);
         }
       })
-      .catch((err) => console.log(err));
-  }, [type]);
+      .catch((err) => console.log(err))
+      .finally(()=> setLoader(false))
+  }, [type])
 
   return (
-    <div>
+    <>
+    {
+      loader ? <LoaderComponent/>
+      : <div>
      
      
       {imgFondo && (
+        
         <div 
           style={{
         
@@ -62,6 +70,9 @@ const ItemListContainer = (props) => {
 
       <ItemList data={data} />
     </div>
+    }
+    </>
+     
   );
 };
 
