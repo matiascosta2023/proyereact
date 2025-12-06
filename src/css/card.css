@@ -19,10 +19,10 @@
 .card {
   
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 10px rgba(17, 17, 17, 0.1);
   overflow: hidden;
   display: flex;
- 
+  background-color: #ffffff;
   padding: 10px;
   flex-direction: column;
   text-align: center;
@@ -32,7 +32,7 @@
   width: 100%;
   height: 400px;
   object-fit: contain;
-  background-color: #ffffff;
+  background-color: #c4c1c180;
 }
 
 .card-body {

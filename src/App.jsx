@@ -38,7 +38,7 @@ function App() {
         <BrowserRouter>
           <CartProvider>
             <Navbar />
-
+            
             <Routes>
               <Route
                 path="/"

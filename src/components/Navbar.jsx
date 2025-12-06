@@ -39,6 +39,7 @@ const Navbar = () => {
             <li><NavLink to={'/category/PCs'} onClick={toggleMenu }>PCs</NavLink></li>
             <li><NavLink  to={'/category/Componentes'} onClick={toggleMenu }>Componentes</NavLink></li>
             <li><NavLink  to={'/category/Periféricos'} onClick={toggleMenu }>Perifericos</NavLink></li>
+            <li><NavLink  to={'/category/Ofertas'} onClick={toggleMenu }>Ofertas</NavLink></li>
           </ul>
         </nav>
       </aside>

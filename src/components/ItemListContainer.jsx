@@ -4,7 +4,8 @@ import { getProducts } from '../mock/AsyncService';
 import ItemList from './ItemList';
 import { useParams } from 'react-router-dom';
 import LoaderComponent from './LoaderComponent';
-
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../service/firebase';
 const ItemListContainer = (props) => {
   const { type } = useParams();
   const [data, setData] = useState([])
@@ -16,23 +17,33 @@ const ItemListContainer = (props) => {
     "PCs": "https://i.postimg.cc/43f2FQCL/3d663f6a-6fc0-4211-9a1a-ca32d6d759ab.jpg"
   
   };
+//firebase
+  useEffect(() => {
+    setLoader(true);
+    //conectamos con nuestra coleccion
+    const productColeccion = collection(db, 'productos')
+    //pedir doc
+    getDocs(productColeccion)
+    .then(())
+    .catch((err))
+  },[])
 
 
   const imgFondo = banners[type];
 
-  useEffect(() => {
-    setLoader(true)
-    getProducts()
-      .then((res) => {
-        if (type) {
-          setData(res.filter((prod) => prod.categoria === type));
-        } else {
-          setData(res);
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(()=> setLoader(false))
-  }, [type])
+  // useEffect(() => {
+  //   setLoader(true)
+  //   getProducts()
+  //     .then((res) => {
+  //       if (type) {
+  //         setData(res.filter((prod) => prod.categoria === type));
+  //       } else {
+  //         setData(res);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err))
+  //     .finally(()=> setLoader(false))
+  // }, [type])
 
   return (
     <>
