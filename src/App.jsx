@@ -13,6 +13,7 @@ import { CartProvider } from "./context/CartContext";
 import LoaderComponent from "./components/LoaderComponent";
 import { useEffect, useState } from "react";
 import CartContainer from "./components/CartContainer";
+import Checkout from "./components/Checkout";
 
 function App() {
   // HOCs
@@ -61,6 +62,7 @@ function App() {
               <Route path="/api" element={<ApiComponent />} />
               <Route path="/api/:id" element={<ApiComponent />} />
               <Route path="/cart" element={<CartContainer/>} />
+              <Route path="/checkout" element={<Checkout/>}></Route>
               <Route path="*" element={<Error />} />
             </Routes>
           </CartProvider>

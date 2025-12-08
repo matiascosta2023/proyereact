@@ -51,7 +51,7 @@ header .btn-shop {
   align-items: center;  
   justify-content: center;  
   color: var(--black);
- 
+ position: relative;
   padding: 15px;
   cursor: pointer;
 }
@@ -127,3 +127,36 @@ header .btn-shop {
     color: var(--primary-color);
     letter-spacing: 3px;
   }
+.cart-quantity-inline {
+   
+    position: absolute;
+    top: -5px;
+    right: -5px;
+
+    
+    background-color: #eb0101; 
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    
+   
+    color: #ffffff !important; 
+    font-size: 11px !important;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+
+    z-index: 10;
+    line-height: 1; 
+}
+.form{
+   display: flex;
+   flex-direction: column;
+   width: 100vw;
+   justify-content: center;
+}

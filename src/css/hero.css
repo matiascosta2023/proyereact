@@ -63,7 +63,7 @@
   background: transparent;
 }
 
-/* imagen del hero */
+
 .hero-image {
   flex: 1 1 45%;
   display: flex;
@@ -78,7 +78,7 @@
   filter: drop-shadow(0 30px 30px rgba(0,0,0,0.35));
 }
 
-/* responsive: en pantallas pequeñas apilar */
+
 @media (max-width: 900px) {
   .container {
     flex-direction: column-reverse;

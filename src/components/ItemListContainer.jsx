@@ -1,35 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import '../css/hero.css'; 
-import { getProducts } from '../mock/AsyncService';
+import { getProducts, productos } from '../mock/AsyncService';
 import ItemList from './ItemList';
 import { useParams } from 'react-router-dom';
 import LoaderComponent from './LoaderComponent';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, where, query, addDoc } from 'firebase/firestore';
 import { db } from '../service/firebase';
 const ItemListContainer = (props) => {
   const { type } = useParams();
   const [data, setData] = useState([])
   const [loader, setLoader] = useState(false)
 
- 
+  
   const banners = {
     "Notebooks": "https://i.postimg.cc/BZwShW4f/banner-notebook.jpg",
     "PCs": "https://i.postimg.cc/43f2FQCL/3d663f6a-6fc0-4211-9a1a-ca32d6d759ab.jpg"
-  
+    
   };
+  const imgFondo = banners[type]; 
 //firebase
+
   useEffect(() => {
     setLoader(true);
     //conectamos con nuestra coleccion
-    const productColeccion = collection(db, 'productos')
+    const productColeccion = type 
+    ? query(collection(db, "productos"), where("category","==",type))
+    :collection(db, 'productos')
     //pedir doc
     getDocs(productColeccion)
-    .then(())
-    .catch((err))
+    .then((res) => {
+      console.log(res.docs)
+
+      //Limpiar y obtener datos
+
+      const list = res.docs.map((doc) => {
+        return{
+          id:doc.id,
+          ...doc.data()
+        }
+      })
+      // console.log(list)
+      setData(list)
+    })
+
+    .catch((err) => console.log(err))
+    .finally(() =>setLoader(false))
   },[])
 
 
-  const imgFondo = banners[type];
 
   // useEffect(() => {
   //   setLoader(true)
@@ -44,9 +62,15 @@ const ItemListContainer = (props) => {
   //     .catch((err) => console.log(err))
   //     .finally(()=> setLoader(false))
   // }, [type])
-
+    // const subirData= () => {
+    //   console.log('subiendo data')
+    //   const prodSubir = collection(db, 'productos')
+    //   productos.map((prod) => addDoc(prodSubir, prod))
+    // }
   return (
     <>
+    {/* se usa una sola vez */}
+    {/* <button onClick={subirData}>Subir data</button> */}
     {
       loader ? <LoaderComponent/>
       : <div>
