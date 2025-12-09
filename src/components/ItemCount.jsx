@@ -20,18 +20,32 @@ const ItemCount = ({ onAdd, stock }) => {
   };
 
   return (
-    <>
-      <div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '15px' }}>
+      
+  
+      <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          gap: '10px' 
+        }}>
+        
         <button
           onClick={restar}
+          disabled={count === 0}
           style={{
-            padding: "8px 12px",
-            fontSize: "18px",
-            marginRight: "10px",
-            borderRadius: "6px",
-            backgroundColor: "#e5e5e5",
-            border: "1px solid #ccc",
-            cursor: "pointer",
+            width: "40px",
+            height: "40px",
+            fontSize: "20px",
+            borderRadius: "4px",
+            backgroundColor: "white",
+            border: "1px solid #ddd", 
+            cursor: count === 0 ? "not-allowed" : "pointer",
+            color: count === 0 ? "#ccc" : "#333", 
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "0.2s"
           }}
         >
           -
@@ -39,12 +53,11 @@ const ItemCount = ({ onAdd, stock }) => {
 
         <span
           style={{
-            fontSize: "20px",
+            fontSize: "18px",
             fontWeight: "bold",
-            margin: "0 10px",
-            minWidth: "30px",
-            display: "inline-block",
+            minWidth: "40px",
             textAlign: "center",
+            fontFamily: "sans-serif"
           }}
         >
           {count}
@@ -52,28 +65,49 @@ const ItemCount = ({ onAdd, stock }) => {
 
         <button
           onClick={sumar}
-          style={{
-            padding: "8px 12px",
-            fontSize: "18px",
-            marginLeft: "10px",
-            borderRadius: "6px",
-            backgroundColor: "#e5e5e5",
-            border: "1px solid #ccc",
-            cursor: "pointer",
-          }}
           disabled={count === stock}
+          style={{
+            width: "40px",
+            height: "40px",
+            fontSize: "20px",
+            borderRadius: "4px",
+            backgroundColor: "white",
+            border: "1px solid #ddd",
+            cursor: count === stock ? "not-allowed" : "pointer",
+            color: count === stock ? "#ccc" : "#333",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "0.2s"
+          }}
         >
-          + 
+          +
         </button>
       </div>
 
+    
       <button
         onClick={ejecutarCompra}
         disabled={count === 0 || stock === 0}
+        style={{
+          width: "100%",  
+          padding: "12px 20px",
+          backgroundColor: (count === 0 || stock === 0) ? "#ccc" : "#222", 
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          fontSize: "16px",
+          fontWeight: "bold",
+          textTransform: "uppercase",
+          cursor: (count === 0 || stock === 0) ? "not-allowed" : "pointer",
+          letterSpacing: "1px",
+          transition: "background-color 0.3s"
+        }}
       >
-        Comprar
+        {stock === 0 ? "Sin Stock" : "Comprar"}
       </button>
-    </>
+      
+    </div>
   );
 };
 

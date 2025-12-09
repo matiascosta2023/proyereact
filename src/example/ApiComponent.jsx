@@ -19,7 +19,7 @@ const ApiComponent = () => {
   return (
     <div>
       
-      {/* {personajes.map((pj) => <p key={pj.id}>{pj.name}</p>)} */}
+      
       <ApiList personajes={personajes}/>
     
     

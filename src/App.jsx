@@ -16,17 +16,17 @@ import CartContainer from "./components/CartContainer";
 import Checkout from "./components/Checkout";
 
 function App() {
-  // HOCs
+ 
   const componenteConHoc = withLogin(ApiComponent);
   const ContadorConHoc = withLogin(ItemCount);
 
-  // Loader inicial
+
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoader(false);
-    }, 1500); // 1.5s — lo podés cambiar
+    }, 1500); 
 
     return () => clearTimeout(timer);
   }, []);

@@ -1,20 +1,31 @@
 import React from "react";
-import '../css/card.css'
+import '../css/card.css';
 import { Link } from "react-router-dom";
-const Item = ({ prod  }) => {
-  const { nombre, precio, descripcion } = prod;
+
+const Item = ({ prod }) => {
  
+  const { id, nombre, precio, descripcion, img } = prod;
+
   return (
-    
     <div className="card">
-      <img src={prod.img} alt={nombre} className="card-img" />
+
+      <div className="card-img-wrapper">
+         <img src={img} alt={nombre} className="card-img" />
+      </div>
 
       <div className="card-body">
         <h5 className="card-title">{nombre}</h5>
         <p className="card-text">{descripcion}</p>
-        <p className="card-price">${precio}</p>
-        <Link className="card-btn" to={`/item/${prod.id}`}  >Ver Detalles</Link  >
-         
+        
+        
+        <div className="card-footer-content">
+          
+            <p className="card-price">${precio}</p>
+            
+            <Link className="card-btn" to={`/item/${id}`}>
+                Ver Detalles
+            </Link>
+        </div>
       </div>
     </div>
   );

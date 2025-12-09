@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import '../css/navbar.css';
 import { FiMenu, FiX } from "react-icons/fi"; 
 import Cartwidget from "./Cartwidget";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -13,33 +15,41 @@ const Navbar = () => {
   return (
     <>
       <header>
-        <a href="#" className="btn-menu" onClick={toggleMenu}>
-          <FiMenu />
-        </a>
-        <NavLink to={'/'} className="logo">HP</NavLink>
 
-        {/* <div className="btn-group">
-          <a href="#" className="btn-shop">
-            <FaShoppingBag />
-          </a>
-          <a href="#" className="btn-primary">Iniciar Sesión</a>
-        </div> */}
-        <Cartwidget />
+        <div className="btn-menu" onClick={toggleMenu}>
+          <FiMenu />
+        </div>
+
+     
+        <NavLink to={'/'} className="logo">
+             HP
+        </NavLink>
+
+     
+        <div className="navbar-right">
+            <NavLink to={'/login'} className="login-link">
+                Iniciar Sesión
+            </NavLink>
+            
+            <div className="cart-wrapper">
+                <Cartwidget />
+            </div>
+        </div>
       </header>
 
-      {/* menú lateral */}
+
       <aside className={`menu ${menuOpen ? 'active' : ''}`}>
-        <a href="#" className="btn-close" onClick={toggleMenu}>
+        <div className="btn-close" onClick={toggleMenu}>
           <FiX />
-        </a>
+        </div>
         <nav>
           <ul>
-           <li><NavLink to={'/'} onClick={toggleMenu }>Inicio</NavLink></li>
-            <li><NavLink to={'/category/Notebooks'} onClick={toggleMenu }>Notebooks</NavLink></li>
-            <li><NavLink to={'/category/PCs'} onClick={toggleMenu }>PCs</NavLink></li>
-            <li><NavLink  to={'/category/Componentes'} onClick={toggleMenu }>Componentes</NavLink></li>
-            <li><NavLink  to={'/category/Periféricos'} onClick={toggleMenu }>Perifericos</NavLink></li>
-            <li><NavLink  to={'/category/Ofertas'} onClick={toggleMenu }>Ofertas</NavLink></li>
+            <li><NavLink to={'/'} onClick={toggleMenu}>Inicio</NavLink></li>
+            <li><NavLink to={'/category/Notebooks'} onClick={toggleMenu}>Notebooks</NavLink></li>
+            <li><NavLink to={'/category/PCs'} onClick={toggleMenu}>PCs</NavLink></li>
+            <li><NavLink to={'/category/Componentes'} onClick={toggleMenu}>Componentes</NavLink></li>
+            <li><NavLink to={'/category/Periféricos'} onClick={toggleMenu}>Periféricos</NavLink></li>
+            <li><NavLink to={'/category/Ofertas'} onClick={toggleMenu}>Ofertas</NavLink></li>
           </ul>
         </nav>
       </aside>
