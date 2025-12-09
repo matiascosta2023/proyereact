@@ -2,9 +2,33 @@ import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 import '../css/CartView.css'; 
+import Swal from 'sweetalert2';
 
 const CartView = () => {
   const { cart, removeItem, clear, total } = useContext(CartContext);
+
+  const confirmAccion = () => {
+    Swal.fire({
+ text: "¿Estás seguro de que deseas vaciar el carrito?",
+icon: "error",
+showCancelButton: true,
+confirmButtonColor: "#3085d6",
+cancelButtonColor: "#d33",
+confirmButtonText: "Sí, vaciar",
+cancelButtonText: "Cancelar"
+}).then((result) => {
+  if (result.isConfirmed) {
+      clear()
+    Swal.fire({
+
+      title: "Carrito vacío",
+      text: "El carrito ha sido vaciado correctamente.",
+      icon: "success",
+     
+    });
+  }
+});
+  }
 
   // Si el carrito está vacío, mostramos un mensaje 
   if (cart.length === 0) {
@@ -56,7 +80,7 @@ const CartView = () => {
         <span className="cart-total">Total: ${total()}</span>
         
         <div className="cart-actions">
-          <button className="btn-vaciar" onClick={clear}>
+          <button className="btn-vaciar" onClick={confirmAccion}>
             Vaciar Carrito
           </button>
           

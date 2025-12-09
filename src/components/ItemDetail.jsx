@@ -5,14 +5,18 @@ import { CartContext } from "../context/CartContext";
 import '../css/detail.css';
 
 const ItemDetail = ({ detalle }) => {
-  const { addItem } = useContext(CartContext);
+  const { cart, addItem, itemQuantity } = useContext(CartContext);
   const [purchase, setPurchase] = useState(false);
+  console.log(cart)
 
   const onAdd = (cantidad) => {
     console.log(`agregaste ${cantidad} al carrito`);
     setPurchase(true);
     addItem(detalle, cantidad);
   };
+ 
+  const stockActualizado = detalle.stock - itemQuantity(detalle.id)
+
 
   return (
     <div className="item-detail">
@@ -46,7 +50,7 @@ const ItemDetail = ({ detalle }) => {
           </p>
 
           <p className="info-row">
-            <strong>Stock Disponible:</strong> {detalle.stock}
+            <strong>Stock Disponible:</strong>  {stockActualizado}
           </p>
 
          
@@ -56,7 +60,7 @@ const ItemDetail = ({ detalle }) => {
                 Terminar compra
               </Link>
             ) : (
-              <ItemCount stock={detalle.stock} onAdd={onAdd} initial={1} />
+              <ItemCount stock={stockActualizado} onAdd={onAdd} initial={1} />
             )}
           </div>
           

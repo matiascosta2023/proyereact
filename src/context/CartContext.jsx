@@ -1,14 +1,21 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 //creamos el contexto y lo exportamos
 export const CartContext = createContext();
-
+const carritoLocal = JSON.parse(localStorage.getItem('carrito')) || []
 //crear provedor
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(carritoLocal);
   const valorDelContexto = {};
   //todas las funciones/funcionalidades que modifiquen el carrito
   //Agregar un item al carrito
+
+
+  useEffect(()=> {
+    localStorage.setItem('carrito', JSON.stringify(cart))
+  },[cart])
+ 
+
   const addItem = (item, qty) => {
     if (isInCart(item.id)) {
       const carritoActualizado = cart.map((prod) => {
@@ -52,11 +59,24 @@ export const CartProvider = ({ children }) => {
    
     return cart.reduce((acc, prod) => acc + prod.quantity, 0);
 };
+
+//funcion para descontar el stock
+
+const itemQuantity = (id) => {
+  const itemInCart = cart.find((prod) => prod.id === id)
+  if(itemInCart ){
+    return itemInCart.quantity
+  }else{
+    //si no existe
+    return 0
+  }
+}
   return (
     <>
-      <CartContext.Provider value={{ cart, addItem, removeItem, clear,total,cartQuantity }}>
+      <CartContext.Provider value={{ cart, addItem, removeItem, clear,total,cartQuantity,itemQuantity}}>
         {children}
       </CartContext.Provider>
     </>
   );
 };
+

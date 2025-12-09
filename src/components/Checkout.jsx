@@ -1,33 +1,34 @@
-import React, { useContext, useState } from 'react'
-import {CartContext} from '../context/CartContext'
-import { serverTimestamp } from 'firebase/database'
-import {db } from '../service/firebase'
+ import React, { useContext, useState } from 'react'
+import { CartContext } from '../context/CartContext'
+import { serverTimestamp } from 'firebase/firestore'
+import { db } from '../service/firebase'
 import { Link } from 'react-router-dom'
 import { addDoc, collection } from 'firebase/firestore'
 import EmptyCart from './EmptyCart'
+import '../css/check.css'
 
 const Checkout = () => {
   const [buyer, setBuyer] = useState({})
   const [secondMail, setSecondMail] = useState('')
-  const {cart, total, clear} = useContext(CartContext)
+  const { cart, total, clear } = useContext(CartContext)
   const [error, setError] = useState(null)
   const [orderId, setOrderId] = useState(null)
-    const buyerData = () => {
-      setBuyer(
-        {
-          ...buyer,
-          [e.target.name]:e.target.value
-        }
-      )
-    }
-    const finalizarCompra = (e) => {
-      e.preventDefault()
-      if(!buyer, name || !buyer.lastname || !buyer.mail || buyer.address){
-        setError('Complete los campos obligatorios')
-      }else if(buyer.mail !== secondMail){
-        setError('Correos Distintos, volver a repetir')
-      }else{
-        setError(null)
+
+  const buyerData = (e) => {
+    setBuyer({
+      ...buyer,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const finalizarCompra = (e) => {
+    e.preventDefault()
+    if (!buyer.name || !buyer.lastname || !buyer.mail || !buyer.address) {
+      setError('Por favor complete los campos obligatorios')
+    } else if (buyer.mail !== secondMail) {
+      setError('Los correos no coinciden')
+    } else {
+      setError(null)
       let order = {
         comprador: buyer,
         compras: cart,
@@ -36,46 +37,71 @@ const Checkout = () => {
       }
       const ventas = collection(db, "orders")
 
-      //agregar doc
       addDoc(ventas, order)
-      .then((res) => {
-        setOrderId(res.id)
-        clear()
-      })
-      .catch((err => console.log(err)))
-      }
- 
+        .then((res) => {
+          setOrderId(res.id)
+          clear()
+        })
+        .catch((err => console.log(err)))
     }
-      if(!cart.lenght && !orderId){
-        return <EmptyCart/>
-      }
+  }
+
+  if (!cart.length && !orderId) {
+    return <EmptyCart />
+  }
+
   return (
- <>
- {orderId 
-  ? <div><h2>Muchas Gracias por su compra</h2>
-    <h4>Su orden es: {orderId}</h4>
-    <Link to={'/'}>Home</Link>
-  </div>
-  :
-      <div> 
-        <h1>Complete con sus datos para el envio</h1>
-      {error && <span style={{color:'red'}}>{error}</span>}
-        <form className='form' onSubmit={finalizarCompra}>
-        <input type="text" name='name' placeholder='Ingresa tu nombre' onChange={buyerData} />
-        <input type="text" name='lastname' placeholder='Ingresa tu apellido' onChange={buyerData}/>
-        <input type="text" name='addres' placeholder='Ingresa tu direccion' onChange={buyerData}/>
-        <input type="email" name='mail' placeholder='Ingresa tu correo' onChange={buyerData} />
-        <input type="email" name='secondmail' placeholder='Repeti tu correo' onChange={(e) => setSecondMail(e.target.value)} />
-        <button type='submit' >Completar Compra</button>
-        </form>
+    <div className='checkout-container'>
+      {orderId ? (
+        <div className='success-container'>
+          <h2 style={{color: '#5c5cff'}}>¡Gracias por su compra!</h2>
+          <p>Su orden ha sido generada con éxito.</p>
+          <p>ID de Orden: <span className='order-badge'>{orderId}</span></p>
+          <br/>
+          <Link to={'/'} className='submit-btn' style={{textDecoration:'none', display:'inline-block', width:'auto', padding: '10px 30px'}}>
+             Volver al Inicio
+          </Link>
+        </div>
+      ) : (
+        <div>
+          {/* TÍTULO LIMPIO SIN FONDO OSCURO */}
+          <h1 className='checkout-title'>Finalizar Compra</h1>
+          <p className='checkout-subtitle'>Completa tus datos para el envío</p>
+          
+          {error && <span className='error-msg'>{error}</span>}
 
+          <form onSubmit={finalizarCompra}>
+            
+            <div className='form-group'>
+              <label className='input-label'>Nombre</label>
+              <input type="text" className='form-input' name='name' placeholder='Ej: Juan' onChange={buyerData} />
+            </div>
+
+            <div className='form-group'>
+              <label className='input-label'>Apellido</label>
+              <input type="text" className='form-input' name='lastname' placeholder='Ej: Pérez' onChange={buyerData}/>
+            </div>
+
+            <div className='form-group'>
+              <label className='input-label'>Dirección de entrega</label>
+              <input type="text" className='form-input' name='address' placeholder='Calle Falsa 123' onChange={buyerData}/>
+            </div>
+
+            <div className='form-group'>
+              <label className='input-label'>Correo Electrónico</label>
+              <input type="email" className='form-input' name='mail' placeholder='juan@ejemplo.com' onChange={buyerData} />
+            </div>
+
+            <div className='form-group'>
+              <label className='input-label'>Confirmar Correo</label>
+              <input type="email" className='form-input' name='secondmail' placeholder='Repite tu correo' onChange={(e) => setSecondMail(e.target.value)} />
+            </div>
+            
+            <button type='submit' className='submit-btn'>Confirmar y Pagar</button>
+          </form>
+        </div>
+      )}
     </div>
-
- 
- }
- 
- 
- </>
   )
 }
 
