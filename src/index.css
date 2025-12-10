@@ -1,8 +1,8 @@
-/* --- index.css --- */
+ 
 
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;700;900&display=swap');
 
-/* 1. Variables Globales */
+ 
 :root {
     --white: #ffffff;
     --light-gray: #f3f4f6;  
@@ -20,11 +20,9 @@
 }
 
 html {
-    /* Esto define la animación suave nativa */
+    
     scroll-behavior: smooth;
     
-    /* Esto es CRÍTICO: le dice al navegador que pare 100px antes 
-       del elemento para que tu Navbar no tape el título */
     scroll-padding-top: 100px; 
 }
 
@@ -33,7 +31,7 @@ body {
     width: 100%;
     min-height: 100vh;
     margin: 0;
-    overflow-x: hidden; /* Evita el scroll lateral accidental */
+    overflow-x: hidden;  
 }
 
 #root {
