@@ -6,6 +6,7 @@ import { data, Link } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
 import EmptyCart from "./EmptyCart";
 import "../css/check.css";
+import Swal from 'sweetalert2';
 import { useForm } from "react-hook-form";
 
 const CheckoutHRF = () => {
@@ -21,9 +22,10 @@ const CheckoutHRF = () => {
 
   console.log(errors, "error");
 
-  const finalizarCompra = (dataForm) => {
-    console.log(dataForm, "error");
+ const finalizarCompra = (dataForm) => {
+    
     setLoading(true);
+
     let order = {
       comprador: {
         name: dataForm.name,
@@ -35,12 +37,23 @@ const CheckoutHRF = () => {
       total: total(),
       fecha: serverTimestamp(),
     };
+    
     const ventas = collection(db, "orders");
 
     addDoc(ventas, order)
       .then((res) => {
         setOrderId(res.id);
         clear();
+
+      
+        Swal.fire({
+          title: "¡Formulario completado!",
+          text: "Gracias por tu compra, nos contactaremos pronto.",
+          icon: "success",
+          draggable: true, 
+          confirmButtonText: "Entendido"
+        });
+        // -------------------------
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
@@ -91,7 +104,7 @@ const CheckoutHRF = () => {
                 className="form-input"
                 name="name"
                 placeholder="Ej: Juan"
-                {...register("name", { required: true, minLength: 7 })}
+                {...register("name", { required: true, minLength: 3 })}
               />
               {errors?.name?.type === "minLength" && (
                 <span style={{ color: "red", fontWeight: "bold" }}>
@@ -107,6 +120,7 @@ const CheckoutHRF = () => {
                 className="form-input"
                 name="lastname"
                 placeholder="Ej: Pérez"
+                {...register("lastname")}
               />
             </div>
 
@@ -117,7 +131,7 @@ const CheckoutHRF = () => {
                 className="form-input"
                 name="address"
                 placeholder="Calle Falsa 123"
-                {...register("address", { required: true, minLength: 7 })}
+                {...register("address", { required: true, minLength: 5 })}
               />
               {errors?.address?.type === "minLength" && (
                 <span style={{ color: "red", fontWeight: "bold" }}>
@@ -173,7 +187,7 @@ const CheckoutHRF = () => {
               )}
             </div>
 
-            <button type="submit" className="submit-btn" disabled={Loading}>
+            <button type="submit" className="submit-btn" disabled={Loading} >
               {Loading ? "Procesando Compra" : "Confirmar y Pagar"}
             </button>
           </form>

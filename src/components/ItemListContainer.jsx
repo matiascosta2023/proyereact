@@ -47,12 +47,14 @@ const ItemListContainer = (props) => {
 
   }, [type]); 
 
-  return (
+ return (
     <>
       {loader ? (
         <LoaderComponent />
       ) : (
-        <div>
+        // AQUI AGREGAMOS EL ID "ofertas" 👇
+        <div id="ofertas" style={{ paddingTop: '50px' }}>
+          
           {imgFondo && (
             <div 
               style={{
@@ -64,6 +66,7 @@ const ItemListContainer = (props) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: '0 0 20px 20px',
+                marginBottom: '40px' // Agregué un margen para separar el banner de los productos
               }}
             >
                <h1 style={{ 

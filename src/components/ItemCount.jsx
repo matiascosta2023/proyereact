@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import Swal from "sweetalert2";
+import '../css/card.css'
 const ItemCount = ({ onAdd, stock }) => {
   const [count, setCount] = useState(0);
 
@@ -15,10 +16,23 @@ const ItemCount = ({ onAdd, stock }) => {
     }
   };
 
-  const ejecutarCompra = () => {
-    onAdd(count);
-  };
+ 
+const ejecutarCompra = () => {
+  onAdd(count);
 
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Producto agregado",
+    showConfirmButton: false,
+    timer: 1500,
+    toast: true,
+    
+    customClass: {
+      popup: 'alerta-top-margin'
+    }
+  });
+};
    return (
   <>
     {stock > 0 ? (

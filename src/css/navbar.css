@@ -1,28 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;700;900&display=swap');
+/* --- navbar.css (Solo estilos del menú) --- */
 
-:root {
-    --white: #ffffff;
-    --light-gray: #f3f4f6;  
-    --dark-bg: #111827;       
-    --primary-color: #10B981; 
-    --font: 'Red Hat Display', sans-serif;
-    --shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: var(--font);
-}
-
-body {
-    width: 100%;
-    min-height: 100vh;
-    background: var(--light-gray);
-    overflow-x: hidden;
-}
-
+/* NOTA: Las variables y resets ahora están en index.css */
 
 header {
     position: sticky;
@@ -37,7 +15,6 @@ header {
     z-index: 1000;
 }
 
-
 header .btn-menu {
     font-size: 1.8em;
     color: var(--white);
@@ -49,7 +26,6 @@ header .btn-menu:hover {
     color: var(--primary-color);
 }
 
-
 header .logo {
     text-decoration: none;
     font-weight: 900;
@@ -59,13 +35,11 @@ header .logo {
     text-transform: uppercase;
 }
 
-
 .navbar-right {
     display: flex;
     align-items: center;
     gap: 25px; 
 }
-
 
 .login-link {
     color: var(--white);
@@ -78,7 +52,6 @@ header .logo {
 .login-link:hover {
     opacity: 0.8;
 }
-
 
 .cart-wrapper {
     position: relative;
@@ -94,7 +67,6 @@ header .logo {
     color: var(--primary-color);
     transform: scale(1.1);
 }
-
 
 .cart-quantity-inline {
     position: absolute;
@@ -112,7 +84,6 @@ header .logo {
     align-items: center;
     border: 2px solid var(--dark-bg);
 }
-
 
 .menu {
     position: fixed;

@@ -111,3 +111,7 @@
 .card-btn:hover {
   background-position: left bottom;
 }
+ 
+.alerta-top-margin {
+  margin-top: 60px !important;
+}

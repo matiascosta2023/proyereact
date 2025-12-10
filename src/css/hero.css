@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+ 
 .hero {
   background: #191938; 
   color: #fff;
@@ -79,6 +80,33 @@
 }
 
 
+.btn-primary {
+  background-color: aqua; 
+  color: #191938; 
+  border: 2px solid aqua; 
+  transition: all 0.3s ease; 
+}
+
+
+.btn-primary:hover {
+  background-color: #fff;
+  border-color: #fff;
+  color: #191938;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+}
+
+
+.btn-outline {
+  
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  border-color: aqua;
+  color: aqua;
+  background: rgba(0, 255, 255, 0.1);
+}
 @media (max-width: 900px) {
   .container {
     flex-direction: column-reverse;
